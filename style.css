@@ -1,28 +1,191 @@
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
 
 body {
-  font-family: Arial, sans-serif;
-  background: #f8f9fa;
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #f4f6f8;
   color: #000;
-  display: flex;
-  justify-content: center;
-  padding-top: 50px;
   transition: background 0.3s, color 0.3s;
 }
 
-.container {
-  background: white;
-  padding: 30px;
-  border-radius: 10px;
-  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
-  width: 350px;
+/* Header */
+.site-header {
+  background-color: #ffffff; /* changed from #2196f3 */
+  color: #2196f3; /* changed from white */
+  padding: 20px 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
-  transition: background 0.3s;
+  box-shadow: 0 0 15px rgba(33, 150, 243, 0.6); /* blue shadow */
 }
 
-input {
-  width: 80%;
+.site-header h1 {
+  margin: 0;
+  font-size: 28px;
+}
+
+/* NAV container flex and alignment for inline toggle */
+.site-header nav {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Nav links as flex with gap */
+.site-header nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  gap: 20px;
+}
+
+/* Nav links styling */
+.site-header nav ul li a {
+  color: #2196f3; /* changed from white */
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+/* Theme switch inside nav - no margin, inline-flex */
+.theme-switch {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0; /* removed bottom margin */
+  cursor: pointer;
+  width: 50px;
+  height: 26px;
+  position: relative;
+}
+
+/* Hide native checkbox */
+.theme-switch input[type="checkbox"] {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+/* Slider track */
+.theme-switch .slider {
+  position: relative;
+  width: 50px;
+  height: 26px;
+  background-color: #ccc;
+  border-radius: 50px;
+  transition: background-color 0.3s;
+  display: block;
+}
+
+/* Slider knob */
+.theme-switch .slider::before {
+  content: "";
+  position: absolute;
+  height: 20px;
+  width: 20px;
+  left: 3px;
+  top: 3px;
+  background-color: #2196f3;
+  border-radius: 50%;
+  transition: transform 0.3s, background-color 0.3s;
+}
+
+/* Checked state background */
+.theme-switch input:checked + .slider {
+  background-color: #2196f3;
+}
+
+/* Checked state knob slide */
+.theme-switch input:checked + .slider::before {
+  transform: translateX(24px);
+}
+
+/* Dark mode slider track */
+body.dark .theme-switch input:checked + .slider {
+  background-color: #ffffff; /* slider background white */
+}
+
+/* Dark mode slider knob */
+body.dark .theme-switch input:checked + .slider::before {
+  background-color: #000000; /* circle black */
+}
+
+/* Footer */
+.site-footer {
+  background-color: #ffffff; /* changed from #2196f3 */
+  color: #2196f3; /* changed from #ffffff */
+  text-align: center;
+  padding: 20px;
+  margin-top: 50px;
+  width: 100%;
+  box-shadow: 0 0 15px rgba(33, 150, 243, 0.6); /* blue shadow */
+}
+
+/* Responsive Header Layout */
+@media (min-width: 768px) {
+  .site-header {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
+  }
+
+  .site-header nav {
+    margin-top: 0;
+  }
+}
+
+/* On small screens nav becomes vertical and toggle is last */
+@media (max-width: 767px) {
+  .site-header nav {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+/* Layout */
+.layout {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  max-width: 1100px;
+  margin: auto;
+  padding: 40px 20px;
+}
+
+/* Panels */
+.panel {
+  flex: 1;
+  min-width: 300px;
+  padding: 30px;
+  border-radius: 12px;
+  background: white;
+  box-shadow: 0 0 10px rgba(7, 139, 247, 0.555); /* light blue with some transparency */
+  transition: background 0.3s, color 0.3s;
+}
+
+.main-panel {
+  max-width: 500px;
+}
+
+.history-panel {
+  max-width: 550px;
+}
+
+/* Form Inputs & Buttons */
+input,
+select {
+  width: 85%;
   padding: 10px;
-  margin-bottom: 10px;
+  margin: 10px 0;
 }
 
 button {
@@ -31,75 +194,18 @@ button {
   cursor: pointer;
 }
 
-.theme-switch {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 20px;
-}
-
-
-.theme-switch input[type="checkbox"] {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-.theme-switch .slider {
-  position: relative;
-  width: 50px;
-  height: 26px;
-  background-color: #ccc;
-  border-radius: 50px;
-  transition: background-color 0.3s;
-  cursor: pointer;
-}
-
-.theme-switch .slider::before {
-  content: "";
-  position: absolute;
-  height: 20px;
-  width: 20px;
-  left: 3px;
-  top: 3px;
-  background-color: #2196f3; 
-  border-radius: 50%;
-  transition: transform 0.3s;
-}
-
-.theme-switch input:checked + .slider {
-  background-color: #4caf50; 
-}
-
-.theme-switch input:checked + .slider::before {
-  transform: translateX(24px); 
-}
-
-body.dark {
-  background: #000000;
-  color: #ffffff;
-}
-
-body.dark .container {
-  background: #1a1a1a;
-  box-shadow: 0 0 10px #222;
-}
+/* Summary */
 #summary {
   margin-top: 20px;
   padding: 15px;
   border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  background-color: #e6ffe6; /* light green background for light mode */
-  color: #2d572c; /* dark green text */
+  background-color: #e6ffe6;
+  color: #226eac;
   transition: background-color 0.3s, color 0.3s;
 }
 
-/* Dark mode styling */
-body.dark #summary {
-  background-color: #2a3a2a; /* dark greenish background */
-  color: #a8d5a8; /* lighter green text */
-  box-shadow: 0 2px 10px rgba(0,0,0,0.7);
-}
+/* History */
 #history {
   padding: 15px;
   border-radius: 8px;
@@ -123,12 +229,48 @@ body.dark #summary {
 .history-list li {
   background: #fff;
   border: 1px solid #ddd;
-  border-left: 5px solid #4caf50;
+  border-left: 5px solid #2196f3;
   padding: 10px;
   margin-bottom: 8px;
   border-radius: 5px;
   font-size: 14px;
   transition: background-color 0.3s;
+}
+
+/* Dark Mode */
+body.dark {
+  background: #000000;
+  color: #ffffff;
+}
+
+body.dark .panel,
+body.dark .container {
+  background: #1a1a1a;
+  color: #ddd;
+  box-shadow: 0 0 10px rgba(224, 224, 224, 0.7);
+}
+
+body.dark .site-header {
+  background-color: #000000; /* changed from #333 */
+  color: #ffffff;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.6); /* white shadow */
+}
+
+body.dark .site-header h1,
+body.dark .site-header nav ul li a {
+  color: #ffffff; /* make text white in dark mode header */
+}
+
+body.dark .site-footer {
+  background-color: #000000; /* changed from #111 */
+  color: #ffffff; /* changed from #666 */
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.6); /* white shadow */
+}
+
+body.dark #summary {
+  background-color: #2a3a2a;
+  color: #a8d5a8;
+  box-shadow: 0 2px 10px rgba(224, 224, 224, 0.7);
 }
 
 body.dark #history {
@@ -138,6 +280,259 @@ body.dark #history {
 body.dark .history-list li {
   background: #2a2a2a;
   border-color: #444;
-  border-left-color: #81c784;
+  border-left-color: #ffffff;
   color: #ddd;
+}
+
+/* Hero Section */
+.hero {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 60px 30px;
+  border-radius: 12px;
+  background-color: #2196f3; /* bright blue */
+  color: white;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(224, 224, 224, 0.7);
+  transition: background-color 0.3s, color 0.3s;
+  font-weight: 600;
+  font-size: 1.25rem;
+}
+
+.hero h2 {
+  margin-bottom: 20px;
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.hero p {
+  margin-bottom: 30px;
+  font-size: 1.2rem;
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+/* Primary Button in Hero */
+.hero .btn-primary {
+  background-color: white;
+  color: #2196f3;
+  padding: 15px 40px;
+  border-radius: 30px;
+  font-weight: 700;
+  text-decoration: none;
+  font-size: 1.1rem;
+  box-shadow: 0 5px 15px rgba(255, 255, 255, 0.4);
+  transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+}
+
+.hero .btn-primary:hover,
+.hero .btn-primary:focus {
+  background-color: #1976d2; /* darker blue */
+  color: white;
+  box-shadow: 0 8px 25px rgba(25, 118, 210, 0.7);
+  outline: none;
+}
+
+/* Dark Mode Hero */
+body.dark .hero {
+  background-color: #000000; /* dark blue */
+  color: #e0e0e0;
+  box-shadow: 0 8px 20px rgba(212, 205, 205, 0.6);
+}
+
+body.dark .hero .btn-primary {
+  background-color: #e0e0e0;
+  color: #000000;
+  box-shadow: 0 5px 15px rgba(224, 224, 224, 0.7);
+}
+
+body.dark .hero .btn-primary:hover,
+body.dark .hero .btn-primary:focus {
+  background-color: #000000; /* slightly lighter dark blue */
+  color: white;
+  box-shadow: 0 8px 25px rgba(224, 224, 224, 0.7);
+}
+
+body, 
+.site-header, 
+.site-footer, 
+.hero, 
+.panel, 
+button, 
+a.btn-primary {
+  transition: background-color 1.5s ease, color 1.5s ease, box-shadow 1.5s ease, border-color 1.5s ease;
+}
+
+/* About Page Specific */
+.about-layout {
+  max-width: 800px;
+  margin: 60px auto 100px auto;
+  padding: 0 20px;
+}
+
+.about-panel {
+  background-color: white;
+  padding: 40px 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(33, 150, 243, 0.3);
+  color: #222;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.about-panel h2 {
+  font-size: 2.8rem;
+  margin-bottom: 20px;
+  color: #2196f3;
+  font-weight: 700;
+}
+
+.about-panel h3 {
+  font-size: 1.8rem;
+  margin-top: 30px;
+  margin-bottom: 12px;
+  color: #1976d2;
+  font-weight: 600;
+}
+
+.about-panel a {
+  color: #2196f3;
+  text-decoration: underline;
+}
+
+.about-panel a:hover,
+.about-panel a:focus {
+  color: #1976d2;
+}
+
+/* Dark Mode About */
+body.dark .about-panel {
+  background-color: #111;
+  color: #eee;
+  box-shadow: 0 0 15px rgba(224, 224, 224, 0.5);
+}
+
+body.dark .about-panel h2,
+body.dark .about-panel h3 {
+  color: #ffffff;
+}
+
+body.dark .about-panel a {
+  color: #ffffff;
+}
+
+/* Extra spacing */
+body.dark .about-layout {
+  margin-bottom: 150px;
+}
+.contact-section {
+  max-width: 700px;
+  margin: 60px auto 120px;
+  padding: 0 20px;
+}
+
+.contact-panel h2 {
+  font-size: 2.8rem;
+  margin-bottom: 20px;
+  color: #2196f3;
+  font-weight: 700;
+}
+
+.contact-panel p {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+  color: #444;
+}
+
+.contact-panel label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #2196f3;
+  font-size: 1rem;
+}
+
+.contact-panel input[type="text"],
+.contact-panel input[type="email"],
+.contact-panel textarea {
+  width: 100%;
+  padding: 12px 15px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  font-family: 'Inter', sans-serif;
+  box-sizing: border-box;
+  transition: border-color 0.3s;
+}
+
+.contact-panel input[type="text"]:focus,
+.contact-panel input[type="email"]:focus,
+.contact-panel textarea:focus {
+  outline: none;
+  border-color: #ffffff;
+  box-shadow: 0 0 5px rgba(224, 224, 224, 0.5);
+}
+
+.contact-panel button {
+  background-color: #000000;
+  color: white;
+  font-weight: 700;
+  font-size: 1.1rem;
+  border: none;
+  padding: 14px 40px;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.contact-panel button:hover,
+.contact-panel button:focus {
+  background-color: #1976d2;
+  box-shadow: 0 5px 15px rgba(25, 118, 210, 0.6);
+  outline: none;
+}
+
+/* Dark mode for contact */
+body.dark .contact-panel {
+  background-color: #1a1a1a;
+  color: #ddd;
+  box-shadow: 0 0 10px rgba(224, 224, 224, 0.7);
+}
+
+body.dark .contact-panel h2,
+body.dark .contact-panel label {
+  color: #ffffff;
+}
+
+body.dark .contact-panel p {
+  color: #bbb;
+}
+
+body.dark .contact-panel input[type="text"],
+body.dark .contact-panel input[type="email"],
+body.dark .contact-panel textarea {
+  background-color: #222;
+  border-color: #444;
+  color: #ddd;
+}
+
+body.dark .contact-panel input[type="text"]:focus,
+body.dark .contact-panel input[type="email"]:focus,
+body.dark .contact-panel textarea:focus {
+  border-color: #ffffff;
+  box-shadow: 0 0 6px rgba(224, 224, 224, 0.5);
+}
+
+body.dark .contact-panel button {
+  background-color: #ffffff;
+  color: #000;
+}
+
+body.dark .contact-panel button:hover,
+body.dark .contact-panel button:focus {
+  background-color: #2a73f0;
+  box-shadow: 0 5px 15px rgba(42, 115, 240, 0.7);
 }

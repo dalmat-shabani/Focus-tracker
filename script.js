@@ -128,3 +128,54 @@ window.addEventListener("DOMContentLoaded", () => {
 
   loadSessionHistory();
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+  const themeToggleCheckbox = document.querySelector('#theme-toggle');
+
+  // Load saved theme preference
+  if (localStorage.getItem('theme') === 'dark') {
+    document.body.classList.add('dark');
+    if (themeToggleCheckbox) themeToggleCheckbox.checked = true;
+  }
+
+  if (!themeToggleCheckbox) return;
+
+  themeToggleCheckbox.addEventListener('change', () => {
+    if (themeToggleCheckbox.checked) {
+      document.body.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.body.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+    }
+  });
+});
+document.getElementById('contact-form').addEventListener('submit', function(e) {
+  e.preventDefault();
+
+  const name = this.name.value.trim();
+  const email = this.email.value.trim();
+  const message = this.message.value.trim();
+  const responseEl = document.getElementById('form-response');
+
+  if (!name || !email || !message) {
+    responseEl.style.color = 'red';
+    responseEl.textContent = 'Please fill in all required fields.';
+    return;
+  }
+
+  // Basic email validation regex
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    responseEl.style.color = 'red';
+    responseEl.textContent = 'Please enter a valid email address.';
+    return;
+  }
+
+  // If all good
+  responseEl.style.color = 'green';
+  responseEl.textContent = 'Thank you for your message! We will get back to you shortly.';
+
+  // Reset form fields
+  this.reset();
+});

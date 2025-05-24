@@ -3,56 +3,83 @@
 <head>
   <meta charset="UTF-8">
   <title>Smart Focus Tracker</title>
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/3064/3064197.png">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="container">
-    <label class="theme-switch">
-        <input type="checkbox" id="theme-toggle" onchange="toggleTheme()">
-        <span class="slider"></span>
-    </label>
+  <header class="site-header">
+  <h1 class="site-title">Smart Focus Tracker</h1>
+
+  <nav class="site-nav">
+    <ul>
+      <li><a href="index.html" aria-current="page">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html" >Contact</a></li>
+    </ul>
+  </nav>
+
+  <label class="theme-switch" for="theme-toggle">
+    <input type="checkbox" id="theme-toggle" />
+    <span class="slider"></span>
+  </label>
+</header>
 
 
+    </nav>
+  </header>
 
-    <h1>Smart Focus Tracker</h1>
+  <section class="hero">
+  <h2>Boost Your Productivity with Smart Focus Tracker</h2>
+  <p>Track your tasks, stay focused, and improve your concentration with ease.</p>
+  <a href="#tracker" class="btn-primary">Start Tracking Now</a>
+</section>
 
-    <input type="text" id="task-name" placeholder="Enter your task">
+
+  <main class="layout">
+    <div class="panel main-panel">
+
+      <h2>Track Your Focus</h2>
+
+      <input type="text" id="task-name" placeholder="Enter your task">
+
       <label for="session-duration">Focus Duration:</label>
-    <select id="session-duration">
-       <option value="1500">25 minutes</option>
-       <option value="3000">50 minutes</option>
-       <option value="600">10 minutes</option>
-       <option value="0">No timer</option>
-    </select>
+      <select id="session-duration">
+        <option value="1500">25 minutes</option>
+        <option value="3000">50 minutes</option>
+        <option value="600">10 minutes</option>
+        <option value="0">No timer</option>
+      </select>
 
-    <button onclick="startSession()">Start Focus Session</button>
+      <button onclick="startSession()">Start Focus Session</button>
 
-    <div id="session" style="display:none;">
+      <div id="session" style="display:none;">
         <p><strong>Task:</strong> <span id="current-task"></span></p>
         <p><strong>Time Elapsed:</strong> <span id="time-elapsed">0s</span></p>
         <p><strong>Focused Time:</strong> <span id="focused-time">0s</span></p>
         <p><strong>Unfocused Time:</strong> <span id="unfocused-time">0s</span></p>
         <p><strong>Focus Score:</strong> <span id="focus-score">100%</span></p>
         <button onclick="endSession()">End Session</button>
-   </div>
-   <div id="summary" style="display:none; margin-top: 20px; padding: 15px; border-radius: 8px; background-color: #dff0d8; color: #3c763d;">
+      </div>
+
+      <div id="summary" style="display:none;">
         <h3>Session Summary</h3>
         <p><strong>Focused Time:</strong> <span id="summary-focused">0s</span></p>
         <p><strong>Unfocused Time:</strong> <span id="summary-unfocused">0s</span></p>
         <p><strong>Focus Score:</strong> <span id="summary-score">0%</span></p>
-   </div>
-   <div id="history" style="margin-top: 20px;">
-        <h3>Session History</h3>
-        <ul id="history-list" class="history-list"></ul>
-   </div>
+      </div>
+    </div>
 
+    <div class="panel history-panel">
+      <h2>📚 Session History</h2>
+      <ul id="history-list" class="history-list"></ul>
+    </div>
+  </main>
 
-
-
-
-
-  </div>
+  <footer class="site-footer">
+    <p>&copy; 2025 Smart Focus Tracker. All rights reserved.</p>
+  </footer>
 
   <script src="script.js"></script>
 </body>
+
 </html>

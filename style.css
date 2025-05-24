@@ -539,3 +539,6 @@ body.dark .contact-panel button:focus {
   background-color: #2a73f0;
   box-shadow: 0 5px 15px rgba(42, 115, 240, 0.7);
 }
+html {
+  scroll-behavior: smooth;
+}

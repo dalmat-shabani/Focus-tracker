@@ -102,23 +102,36 @@ function getFocusStats() {
 }
 
 function saveSessionHistory(data) {
-  const history = JSON.parse(localStorage.getItem("focusHistory") || "[]");
-  history.unshift(data);
-  localStorage.setItem("focusHistory", JSON.stringify(history.slice(0, 10)));
+  fetch("save_session.php", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(data)
+  }).then(res => {
+    if (!res.ok) throw new Error("Failed to save session");
+  }).catch(err => console.error(err));
 }
+
 
 function loadSessionHistory() {
-  const history = JSON.parse(localStorage.getItem("focusHistory") || "[]");
-  const list = document.getElementById("history-list");
-  if (!list) return;
+  fetch("load_sessions.php")
+    .then(res => res.json())
+    .then(history => {
+      const list = document.getElementById("history-list");
+      if (!list) return;
 
-  list.innerHTML = "";
-  history.forEach(session => {
-    const li = document.createElement("li");
-    li.textContent = `[${session.timestamp}] ${session.task} (${session.type}) — Focus: ${session.focused}s, Unfocus: ${session.unfocused}s, Score: ${session.score}%`;
-    list.appendChild(li);
-  });
+      list.innerHTML = "";
+      history.forEach(session => {
+        const li = document.createElement("li");
+        li.textContent = `[${session.timestamp}] ${session.task} (${session.task_type}) — Focus: ${session.focused}s, Unfocus: ${session.unfocused}s, Score: ${session.score}%`;
+        list.appendChild(li);
+      });
+    }).catch(err => {
+      console.error("Failed to load session history", err);
+    });
 }
+
 
 window.addEventListener("blur", () => {
   isWindowFocused = false;

@@ -1,3 +1,11 @@
+<?php
+session_start();
+if (!isset($_SESSION['user_id'])) {
+  header("Location: login.php");
+  exit;
+}
+?>
+
 <script>
   if (localStorage.getItem('theme') === 'dark') {
     document.documentElement.classList.add('dark');
@@ -23,6 +31,8 @@
         <li><a href="index.html" >Home</a></li>
         <li><a href="about.html">About</a></li>
         <li><a href="contact.html" arria-current="page">Contact</a></li>
+        <li><a href="weekly_summary.php">Weekly Summary</a></li>
+        <li> <a href="logout.php">Log out</a> </li>
       </ul>
     </nav>
 

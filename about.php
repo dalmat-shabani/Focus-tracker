@@ -29,9 +29,9 @@ if (!isset($_SESSION['user_id'])) {
 
     <nav class="site-nav">
       <ul>
-        <li><a href="index.html" >Home</a></li>
-        <li><a href="about.html" aria-current="page">About</a></li>
-        <li><a href="contact.html">Contact</a></li>
+        <li><a href="index.php" >Home</a></li>
+        <li><a href="about.php" aria-current="page">About</a></li>
+        <li><a href="contact.php">Contact</a></li>
         <li><a href="weekly_summary.php">Weekly Summary</a></li>
         <li><a href="logout.php">Log out</a></li>
       </ul>
@@ -76,7 +76,7 @@ if (!isset($_SESSION['user_id'])) {
 
     <h3>📬 Let’s Talk</h3>
     <p>
-      Got an idea, bug, or just want to say hello? Reach out on our <a href="contact.html">Contact Page</a> — we read every message.
+      Got an idea, bug, or just want to say hello? Reach out on our <a href="contact.php">Contact Page</a> — we read every message.
     </p>
   </section>
 </main>

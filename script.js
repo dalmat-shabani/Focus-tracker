@@ -2,6 +2,7 @@ let startTime, timerInterval;
 let totalFocusedTime = 0;
 let isWindowFocused = true;
 let sessionDuration = 0; // in seconds
+let warnedForLongFocus = false;
 
 function toggleTheme() {
   const isDark = document.getElementById("theme-toggle").checked;
@@ -23,6 +24,7 @@ function startSession() {
   startTime = Date.now();
   totalFocusedTime = 0;
   isWindowFocused = true;
+  warnedForLongFocus = false;
 
   timerInterval = setInterval(updateStats, 1000);
 }
@@ -45,6 +47,11 @@ function updateStats() {
   const focusScore = elapsedSec > 0 ? Math.round((totalFocusedTime / elapsedSec) * 100) : 100;
   document.getElementById("focus-score").innerText = `${focusScore}%`;
 
+  if (!warnedForLongFocus && totalFocusedTime >= 3000) {
+    warnedForLongFocus = true;
+    alert("You've been working for over 50 minutes. Time to take a short break!");
+  }
+
   if (sessionDuration > 0 && elapsedSec >= sessionDuration) {
     endSession();
     alert("Session complete!");
@@ -56,9 +63,11 @@ function endSession() {
 
   const stats = getFocusStats();
   const taskName = document.getElementById("current-task").innerText;
+  const taskType = document.getElementById("task-type")?.value || "Unspecified";
 
   const sessionData = {
     task: taskName,
+    type: taskType,
     focused: stats.focused,
     unfocused: stats.unfocused,
     score: stats.focusScore,
@@ -94,8 +103,8 @@ function getFocusStats() {
 
 function saveSessionHistory(data) {
   const history = JSON.parse(localStorage.getItem("focusHistory") || "[]");
-  history.unshift(data); // add to the beginning
-  localStorage.setItem("focusHistory", JSON.stringify(history.slice(0, 10))); // keep last 10
+  history.unshift(data);
+  localStorage.setItem("focusHistory", JSON.stringify(history.slice(0, 10)));
 }
 
 function loadSessionHistory() {
@@ -106,7 +115,7 @@ function loadSessionHistory() {
   list.innerHTML = "";
   history.forEach(session => {
     const li = document.createElement("li");
-    li.textContent = `[${session.timestamp}] ${session.task} — Focus: ${session.focused}s, Unfocus: ${session.unfocused}s, Score: ${session.score}%`;
+    li.textContent = `[${session.timestamp}] ${session.task} (${session.type}) — Focus: ${session.focused}s, Unfocus: ${session.unfocused}s, Score: ${session.score}%`;
     list.appendChild(li);
   });
 }
@@ -132,7 +141,6 @@ window.addEventListener("DOMContentLoaded", () => {
 document.addEventListener('DOMContentLoaded', () => {
   const themeToggleCheckbox = document.querySelector('#theme-toggle');
 
-  // Load saved theme preference
   if (localStorage.getItem('theme') === 'dark') {
     document.body.classList.add('dark');
     if (themeToggleCheckbox) themeToggleCheckbox.checked = true;
@@ -150,32 +158,33 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
-document.getElementById('contact-form').addEventListener('submit', function(e) {
-  e.preventDefault();
 
-  const name = this.name.value.trim();
-  const email = this.email.value.trim();
-  const message = this.message.value.trim();
-  const responseEl = document.getElementById('form-response');
+const contactForm = document.getElementById('contact-form');
+if (contactForm) {
+  contactForm.addEventListener('submit', function (e) {
+    e.preventDefault();
 
-  if (!name || !email || !message) {
-    responseEl.style.color = 'red';
-    responseEl.textContent = 'Please fill in all required fields.';
-    return;
-  }
+    const name = this.name.value.trim();
+    const email = this.email.value.trim();
+    const message = this.message.value.trim();
+    const responseEl = document.getElementById('form-response');
 
-  // Basic email validation regex
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailRegex.test(email)) {
-    responseEl.style.color = 'red';
-    responseEl.textContent = 'Please enter a valid email address.';
-    return;
-  }
+    if (!name || !email || !message) {
+      responseEl.style.color = 'red';
+      responseEl.textContent = 'Please fill in all required fields.';
+      return;
+    }
 
-  // If all good
-  responseEl.style.color = 'green';
-  responseEl.textContent = 'Thank you for your message! We will get back to you shortly.';
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      responseEl.style.color = 'red';
+      responseEl.textContent = 'Please enter a valid email address.';
+      return;
+    }
 
-  // Reset form fields
-  this.reset();
-});
+    responseEl.style.color = 'green';
+    responseEl.textContent = 'Thank you for your message! We will get back to you shortly.';
+
+    this.reset();
+  });
+}
